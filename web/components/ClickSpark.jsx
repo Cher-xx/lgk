@@ -2,6 +2,13 @@
 // A viewport canvas avoids allocating a canvas as tall as the entire gallery.
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import ShapeGrid from './ShapeGrid';
+
+function HeroShapeGrid() {
+  const [hero, setHero] = useState(null);
+  useEffect(() => setHero(document.querySelector('.hero')), []);
+  return hero ? createPortal(<ShapeGrid className="hero-shape-grid" direction="diagonal" speed={.15} squareSize={68} borderColor="rgba(191, 222, 193, .27)" hoverFillColor="rgba(174, 211, 174, .22)" hoverTrailAmount={3}/>, hero) : null;
+}
 
 export default function ClickSpark({ sparkColor = '#8ec9a2', sparkSize = 10, sparkRadius = 24, sparkCount = 8, duration = 450, extraScale = 1, children }) {
   const canvasRef = useRef(null);
@@ -40,5 +47,5 @@ export default function ClickSpark({ sparkColor = '#8ec9a2', sparkSize = 10, spa
     document.addEventListener('click', click, true);
     return () => {document.removeEventListener('click', click, true);cancelAnimationFrame(frame);};
   }, [sparkColor, sparkSize, sparkRadius, sparkCount, duration, extraScale]);
-  return <>{children}{createPortal(<canvas ref={canvasRef} className="click-spark-canvas" aria-hidden="true"/>, host)}</>;
+  return <>{children}<HeroShapeGrid />{createPortal(<canvas ref={canvasRef} className="click-spark-canvas" aria-hidden="true"/>, host)}</>;
 }

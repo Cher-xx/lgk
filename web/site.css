@@ -10,3 +10,6 @@ html{scroll-behavior:smooth;scroll-padding-top:108px}.header{position:fixed;inse
 /* Smaller folder composition, with more breathing room above it. */
 .hero-folder-stage{translate:0 40px}
 @media(max-width:800px){.hero-folder-stage{translate:0 25px}}
+
+/* React Bits ShapeGrid sits behind the homepage content. */
+.hero-shape-grid{position:absolute;inset:0;z-index:0;opacity:.72;pointer-events:auto}.hero-folder-stage,.hero-bottom{z-index:2}.hero-folder-stage{isolation:isolate}@media(prefers-reduced-motion:reduce){.hero-shape-grid{opacity:.45}}
