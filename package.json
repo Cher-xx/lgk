@@ -1,0 +1,14 @@
+{
+  "name": "inspiration-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/sync-assets.mjs && vite --host 127.0.0.1",
+    "build": "node scripts/sync-assets.mjs && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "deploy": "pnpm build && pnpm dlx wrangler@4 deploy"
+  },
+  "dependencies": { "react": "^19.1.0", "react-dom": "^19.1.0" },
+  "devDependencies": { "vite": "^7.1.0" }
+}
