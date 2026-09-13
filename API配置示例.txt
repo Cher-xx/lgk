@@ -1,0 +1,9 @@
+在同目录的 API KEY.txt 中填写以下两行（不要把真实密钥写在本示例文件中）：
+
+API_KEY=你的阿里云百炼API密钥
+BASE_URL=你的阿里云OpenAI兼容接口地址
+
+BASE_URL 使用阿里云控制台对应地域或业务空间提供的 compatible-mode/v1 地址。
+也支持以 /chat/completions 结尾的完整接口地址。
+密钥与 URL 的地域必须匹配，不要填写百炼控制台网页地址。
+固定调用模型：qwen3-vl-plus。

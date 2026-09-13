@@ -24,7 +24,7 @@ npm run preview
 
 ## GitHub 与 Cloudflare
 
-可以把本项目整个文件夹提交到 GitHub。`.gitignore` 已排除 `node_modules`、构建产物和本机 API 密钥；不要将项目外的 `API KEY.txt` 复制进仓库。
+可以把本项目整个文件夹提交到 GitHub。`.gitignore` 已排除 `node_modules`、构建产物和 `private-data` 中的本机 API 密钥、Excel 与缓存。
 
 首次部署到 Cloudflare 前，登录 Wrangler：
 
@@ -46,6 +46,6 @@ pnpm deploy
 
 ## 更新素材
 
-原来的 `index.html`、`app.js`、`style.css` 和素材更新脚本保持原样，仍可使用旧版页面。运行原有流程更新 `materials.js` 与 `image` 后，重新运行 `npm run dev` 或 `npm run build`，会自动同步最新素材。
+将影刀图片放入 `image`，将 `landscape.xlsx` 和 `API KEY.txt` 放入 `private-data`，再双击 `更新素材.cmd`。它会完成去重、AI 打标、更新 `materials.js`，并同步 React 网站数据；GitHub Desktop 中提交 `image` 与 `materials.js` 的变更即可。
 
 React 页面代码位于 `web/src.jsx`，新增样式位于 `web/site.css`。同步脚本只复制 materials 数据、图片与旧样式，不复制工作目录内其他文件。

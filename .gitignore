@@ -5,3 +5,5 @@ dist/
 web/public/image/
 web/materials.json
 web/legacy.css
+private-data/*
+!private-data/README.md
