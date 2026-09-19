@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent
 PRIVATE = ROOT / 'private-data'
 MODEL = 'qwen3-vl-plus'
 LABELS = {
-    '景观类型': '城市公园、滨水景观、住宅庭院、商业广场、社区花园、校园景观、屋顶花园、生态湿地'.split('、'),
+    '景观类型': '城市公园、滨水空间、住宅庭院、商业广场、社区花园、屋顶花园、生态湿地、街道空间、工业遗址、美丽乡村'.split('、'),
     '设计风格': '现代简约、自然主义、新中式园林、日式禅意、英式自然花园、野趣生态、工业遗址景观'.split('、'),
     '材料与植物': '天然石材、透水铺装、木平台、耐候钢、砾石、景观水体、乡土乔木、观赏草、多年生花境、水生植物'.split('、'),
     '色彩与季相': '自然绿调、大地色系、低饱和配色、银灰叶色、春季繁花、夏季浓荫、秋季暖色、冬季枝干线条'.split('、'),
@@ -126,17 +126,18 @@ def main():
         return
     prompt = (ROOT / '提示词.txt').read_text(encoding='utf-8-sig')
     version = signature(prompt)
+    force = '--force' in sys.argv
     cache = load_cache()
     published = existing_material_labels()
     paths = sorted(p for p in (ROOT / 'image').iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS)
     for index, path in enumerate(paths, 1):
         digest = pixel_hash(path)
         cache_key = version + ':' + digest
-        if cache_key in cache:
+        if not force and cache_key in cache:
             validate(cache[cache_key]['labels'])
             print(f'[{index}/{len(paths)}] 复用已打标：{path.name}', flush=True)
             continue
-        if path.name in published:
+        if not force and path.name in published:
             cache[cache_key] = {'model': 'existing-materials', 'hash': digest, 'labels': published[path.name]}
             save_cache(cache)
             print(f'[{index}/{len(paths)}] 复用网站已有标签：{path.name}', flush=True)
